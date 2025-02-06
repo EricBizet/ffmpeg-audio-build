@@ -2,6 +2,8 @@ name: Build static ffmpeg
 
 on:
   push:
+    tags:
+      - 'v*'
   pull_request:
 
 jobs:
