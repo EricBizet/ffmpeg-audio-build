@@ -23,6 +23,7 @@ jobs:
         with:
           args: |
             bash -c "
+            amazon-linux-extras install epel -y && \
             yum update -y && \
             yum groupinstall -y 'Development Tools' && \
             yum install -y yasm && \
