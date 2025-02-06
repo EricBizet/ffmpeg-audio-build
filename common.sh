@@ -179,5 +179,4 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-parser=mpegaudio
     --enable-parser=tak
     --enable-parser=vorbis
-    --extra-ldflags="-static"
 )
