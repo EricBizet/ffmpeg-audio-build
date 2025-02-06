@@ -28,7 +28,7 @@ jobs:
             yum groupinstall -y 'Development Tools' && \
             yum install -y yasm && \
             if [ \"${{ env.ARCH }}\" = \"arm64\" ]; then
-              yum install -y gcc-aarch64-linux-gnu;
+              yum install -y gcc-aarch64-linux-gnu glibc-devel.aarch64 libgcc.aarch64 glibc-headers-aarch64 glibc.aarch64;
             fi && \
             ./build-linux.sh
             "
