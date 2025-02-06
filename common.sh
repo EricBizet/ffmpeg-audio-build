@@ -30,6 +30,7 @@ FFMPEG_CONFIGURE_FLAGS=(
     --disable-indevs
     --disable-outdevs
     --disable-encoders
+    --enable-encoder=libopus
     --disable-decoders
     --disable-hwaccels
     --disable-nvenc
@@ -94,6 +95,8 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-demuxer=wv
     --enable-demuxer=xwma
     --enable-demuxer=dsf
+
+    --enable-muxer=mp4
 
     --enable-decoder=aac
     --enable-decoder=aac_latm
@@ -179,4 +182,5 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-parser=mpegaudio
     --enable-parser=tak
     --enable-parser=vorbis
+    --extra-ldflags="-static"
 )
