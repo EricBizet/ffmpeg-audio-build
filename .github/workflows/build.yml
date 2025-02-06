@@ -25,7 +25,7 @@ jobs:
             amazon-linux-extras install epel -y && \
             yum update -y && \
             yum groupinstall -y 'Development Tools' && \
-            yum install -y yasm && \
+            yum install -y yasm glibc-static && \
             ./build-linux.sh
             "
             
