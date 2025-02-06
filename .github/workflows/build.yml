@@ -9,8 +9,6 @@ on:
 jobs:
   package-linux:
     runs-on: ubuntu-20.04
-    container:
-      image: amazonlinux:2
     strategy:
       matrix:
         arch:
@@ -20,17 +18,20 @@ jobs:
       ARCH: ${{ matrix.arch }}
     steps:
       - uses: actions/checkout@v3
-      - name: Install dependencies
-        run: |
-          yum update -y && \
-          yum groupinstall -y "Development Tools" && \
-          yum install -y yasm
-      - name: Install ARM64 compiler
-        if: env.ARCH == 'arm64'
-        run: |
-          yum install -y gcc-aarch64-linux-gnu
-      - name: Build
-        run: ./build-linux.sh
+      - name: Build in Amazon Linux 2
+        uses: docker://amazonlinux:2
+        with:
+          args: |
+            bash -c "
+            yum update -y && \
+            yum groupinstall -y 'Development Tools' && \
+            yum install -y yasm && \
+            if [ \"${{ env.ARCH }}\" = \"arm64\" ]; then
+              yum install -y gcc-aarch64-linux-gnu;
+            fi && \
+            ./build-linux.sh
+            "
+            
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -59,6 +60,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/v')
         with:
-          files: artifacts/release/*
-        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
